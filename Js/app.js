@@ -59,7 +59,7 @@ const productos = [
         id: 8,
         nombre: "Dragon",
         precio: 150000,
-        categoria: "Audio",
+        categoria: "Niño",
         stock: 2
     }
 ];
@@ -93,7 +93,7 @@ function mostrarProductos (){
     }
 
     cantidadProductos.textContent =
-    `Mostrar ${productosFiltrados.length} productos`;
+    `Mostrando ${productosFiltrados.length} productos`;
 
     productosFiltrados.forEach(producto => {
 
