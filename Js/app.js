@@ -61,6 +61,14 @@ const productos = [
         precio: 150000,
         categoria: "Niño",
         stock: 2
+    },
+
+    {
+        id: 9,
+        nombre: "Perro",
+        precio: 50000,
+        categoria: "Bebes",
+        stock: 10
     }
 ];
 
