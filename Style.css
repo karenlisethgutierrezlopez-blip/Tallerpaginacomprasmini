@@ -1,0 +1,282 @@
+/* =================================
+   TIENDA DE PELUCHES
+   Diseño realizado por Santiago
+================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #fff5f8;
+    color: #55404a;
+}
+
+/* ENCABEZADO */
+
+header {
+    background: linear-gradient(135deg, #f7a9c4, #e987ae);
+    color: white;
+    text-align: center;
+    padding: 35px 15px;
+    box-shadow: 0 4px 12px rgba(180, 90, 125, 0.15);
+}
+
+header h1 {
+    font-size: 35px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+header p {
+    font-size: 16px;
+}
+
+/* CONTENIDO PRINCIPAL */
+
+main {
+    width: 90%;
+    max-width: 1200px;
+    margin: 35px auto;
+}
+
+/* TITULOS */
+
+h2 {
+    color: #c75c89;
+    margin-bottom: 20px;
+    font-size: 25px;
+}
+
+h3 {
+    color: #bd5c85;
+    margin-bottom: 15px;
+}
+
+/* CATALOGO */
+
+.catalogo {
+    margin-bottom: 40px;
+}
+
+#cantidad-productos {
+    margin: 20px 0;
+    color: #94717f;
+    font-size: 14px;
+}
+
+/* FILTROS */
+
+.filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filtros button {
+    background-color: white;
+    color: #c75c89;
+    border: 1px solid #f0b5ca;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.filtros button:hover,
+.filtros button.activo,
+.filtros button.active {
+    background-color: #e987ae;
+    color: white;
+}
+
+/* PRODUCTOS */
+
+.productos {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+}
+
+.productos > * {
+    background-color: white;
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(190, 120, 150, 0.12);
+    border: 1px solid #f8dce7;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.productos > *:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(190, 120, 150, 0.2);
+}
+
+.productos img {
+    width: 100%;
+    height: 190px;
+    object-fit: contain;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.productos h3,
+.productos h4 {
+    color: #bd5c85;
+    margin-bottom: 10px;
+}
+
+.productos p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+/* BOTONES GENERALES */
+
+button {
+    font-family: inherit;
+}
+
+.productos button,
+#lista-carrito button {
+    background-color: #e987ae;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.productos button:hover,
+#lista-carrito button:hover {
+    background-color: #c75c89;
+}
+
+button:disabled {
+    background-color: #d8cbd0 !important;
+    color: #777 !important;
+    cursor: not-allowed;
+}
+
+/* CARRITO */
+
+.carrito {
+    background-color: white;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 4px 15px rgba(190, 120, 150, 0.12);
+    border: 1px solid #f8dce7;
+}
+
+#lista-carrito {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#lista-carrito > * {
+    background-color: #fff5f8;
+    border: 1px solid #f4d4e1;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+/* VACIAR CARRITO */
+
+#vaciar-carrito {
+    background-color: #bd5c85;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 10px 0 20px;
+}
+
+#vaciar-carrito:hover {
+    background-color: #963e65;
+}
+
+/* RESUMEN */
+
+.resumen {
+    background-color: #fff0f5;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 15px;
+}
+
+.resumen p {
+    display: flex;
+    justify-content: space-between;
+    margin: 12px 0;
+    border-bottom: 1px solid #f2d6e1;
+    padding-bottom: 10px;
+}
+
+.resumen h3:last-child {
+    color: #c75c89;
+    font-size: 23px;
+    margin-top: 20px;
+}
+
+/* PIE DE PAGINA */
+
+footer {
+    background-color: #e987ae;
+    color: white;
+    text-align: center;
+    padding: 22px;
+    margin-top: 40px;
+}
+
+/* RESPONSIVE */
+
+@media (min-width: 600px) {
+    .productos {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 900px) {
+    .productos {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1100px) {
+    .productos {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    header h1 {
+        font-size: 27px;
+    }
+
+    main {
+        width: 94%;
+    }
+
+    .carrito {
+        padding: 17px;
+    }
+
+    .productos > * {
+        padding: 15px;
+    }
+
+    .filtros button {
+        padding: 9px 14px;
+    }
+}
