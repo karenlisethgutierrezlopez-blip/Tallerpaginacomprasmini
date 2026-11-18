@@ -96,7 +96,7 @@ function mostrarProductos (){
     `Mostrar ${productosFiltrados.length} productos`;
 
     productosFiltrados.forEach(producto => {
-        
+
         const tarjeta = document.createElement("div");
         tarjeta.classList.add("tarjeta");
 
@@ -113,5 +113,79 @@ function mostrarProductos (){
         `;
 
         contenedorProductos.appendChild(tarjeta);
+
+        const botonAgregar = tarjeta.querySelector(".agregar");
+
+        botonAgregar.addEventListener("click", () => {
+            agregarAlCarrito(producto.id);
+        });
     });
 }
+
+function agregarAlCarrito(id) {
+
+    const producto = productos.find(producto => producto.id === id);
+
+    if(producto.stock === o) {
+        return;
+    }
+
+    const productoCarrito = carrito.find(item => item.id === id);
+
+    if (productoCarrito) {
+        
+        productoCarrito.cantidad++;
+
+    }else {
+    carrito.push({
+        id: productos.id,
+        nombre: producto.nombre,
+        precio: producto.precio,
+        cantidad: 1
+    });
+}
+
+producto.stock--;
+
+mostrarProductos();
+mostrarCarrito();
+}
+
+function mostrarCarrito() {
+
+    listaCarrito.innerHTML = "";
+
+    if(carrito.length === 0) {
+
+        listaCarrito.textContent = "Tu carrito está vacío";
+    } else {
+
+        carrito.forEach (producto => {
+
+            const elemento = document.createElement("div");
+
+            elemento.classList.add("producto-carrito");
+
+            elemento.innerHTML = `
+            <h3>${producto.nombre}</h3>
+            <p>Precio unitario: $ ${producto.precio.toLocaleString("es-CO")}</p>
+            <button class="disminuir" data-id="${producto.id}">-</button>
+            <span>${producto.cantidad}</span>
+            <button class="aumentar" data-id="${producto.id}">+</button>`;
+
+            listaCarrito.appendChild(elemento);
+
+            elemento.querySelector(".aumentar").addEventListener("click", () => {
+                aumentarCantidad(producto.id);
+});
+            elemento.querySelector(".disminuir").addEventListener("click", () => {
+                disminuirCantidad(producto.id);
+});
+            elemento.querySelector(".eliminar").addEventListener("click", () => {
+                eliminarProducto(producto.id);
+});
+        });
+    }
+    actualizarResumen();
+}
+
