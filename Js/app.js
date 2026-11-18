@@ -189,3 +189,103 @@ function mostrarCarrito() {
     actualizarResumen();
 }
 
+function aumentarCantidad(id) {
+     const producto = productos.find(producto => producto.id === id);
+
+    const productoCarrito = carrito.find(item => item.id === id);
+
+    if (producto.stock > 0) {
+
+        productoCarrito.cantidad++;
+
+        producto.stock--;
+
+        mostrarProductos();
+        mostrarCarrito();
+    }
+}
+
+function disminuirCantidad(id) {
+
+    const productoCarrito = carrito.find(item => item.id === id);
+
+    const producto = productos.find(item => item.id === id);
+
+    productoCarrito.cantidad--;
+
+    producto.stock++;
+
+    if (productoCarrito.cantidad === 0) {
+
+        carrito = carrito.filter(item => item.id !== id);
+
+    }
+
+    mostrarProductos();
+    mostrarCarrito();
+}
+
+function eliminarProducto(id) {
+
+    const productoCarrito = carrito.find(item => item.id === id);
+
+    const producto = productos.find(item => item.id === id);
+
+    producto.stock += productoCarrito.cantidad;
+
+    carrito = carrito.filter(item => item.id !== id);
+
+    mostrarProductos();
+    mostrarCarrito();
+}
+
+function vaciarCarrito() {
+
+    carrito.forEach(item => {
+
+        const producto = productos.find(producto => producto.id === item.id);
+
+        producto.stock += item.cantidad;
+
+    });
+
+    carrito = [];
+
+    mostrarProductos();
+    mostrarCarrito();
+}
+
+botonVaciar.addEventListener("click", vaciarCarrito);
+
+function actualizarResumen() {
+
+    // Calcular cantidad de artículos
+    const cantidadArticulos = carrito.reduce((acumulador, producto) => {
+        return acumulador + producto.cantidad;
+    }, 0);
+
+  
+    const valorSubtotal = carrito.reduce((acumulador, producto) => {
+        return acumulador + (producto.precio * producto.cantidad);
+    }, 0);
+
+    let valorDescuento = 0;
+
+    if (valorSubtotal >= 300000) {
+        valorDescuento = valorSubtotal * 0.10;
+    }
+
+    const valorTotal = valorSubtotal - valorDescuento;
+
+    articulos.textContent = cantidadArticulos;
+
+    subtotal.textContent = `$ ${valorSubtotal.toLocaleString("es-CO")}`;
+
+    descuento.textContent = `-$ ${valorDescuento.toLocaleString("es-CO")}`;
+
+    total.textContent = `$ ${valorTotal.toLocaleString("es-CO")}`;
+}
+
+mostrarFiltros();
+mostrarProductos();
+mostrarCarrito();
