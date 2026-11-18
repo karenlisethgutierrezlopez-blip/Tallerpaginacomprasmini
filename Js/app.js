@@ -126,7 +126,7 @@ function agregarAlCarrito(id) {
 
     const producto = productos.find(producto => producto.id === id);
 
-    if(producto.stock === o) {
+    if(producto.stock === 0) {
         return;
     }
 
@@ -138,7 +138,7 @@ function agregarAlCarrito(id) {
 
     }else {
     carrito.push({
-        id: productos.id,
+        id: producto.id,
         nombre: producto.nombre,
         precio: producto.precio,
         cantidad: 1
@@ -166,12 +166,14 @@ function mostrarCarrito() {
 
             elemento.classList.add("producto-carrito");
 
-            elemento.innerHTML = `
-            <h3>${producto.nombre}</h3>
-            <p>Precio unitario: $ ${producto.precio.toLocaleString("es-CO")}</p>
-            <button class="disminuir" data-id="${producto.id}">-</button>
-            <span>${producto.cantidad}</span>
-            <button class="aumentar" data-id="${producto.id}">+</button>`;
+           elemento.innerHTML = `
+           <h3>${producto.nombre}</h3>
+           <p>Precio unitario: $ ${producto.precio.toLocaleString("es-CO")}</p>
+           <button class="disminuir">-</button>
+           <span>${producto.cantidad}</span>
+           <button class="aumentar">+</button>
+           <p>Subtotal: $ ${(producto.precio * producto.cantidad).toLocaleString("es-CO")}</p>
+           <button class="eliminar">Eliminar</button>`;
 
             listaCarrito.appendChild(elemento);
 
@@ -259,7 +261,7 @@ botonVaciar.addEventListener("click", vaciarCarrito);
 
 function actualizarResumen() {
 
-    // Calcular cantidad de artículos
+    
     const cantidadArticulos = carrito.reduce((acumulador, producto) => {
         return acumulador + producto.cantidad;
     }, 0);
@@ -284,6 +286,37 @@ function actualizarResumen() {
     descuento.textContent = `-$ ${valorDescuento.toLocaleString("es-CO")}`;
 
     total.textContent = `$ ${valorTotal.toLocaleString("es-CO")}`;
+}
+
+function mostrarFiltros() {
+
+    contenedorFiltros.innerHTML = "";
+
+    const categorias = ["Todas", ...new Set(
+        productos.map(producto => producto.categoria)
+    )];
+
+    categorias.forEach(categoria => {
+
+        const boton = document.createElement("button");
+
+        boton.textContent = categoria;
+
+        if (categoria === categoriaSeleccionada) {
+            boton.classList.add("activo");
+        }
+
+        boton.addEventListener("click", () => {
+
+            categoriaSeleccionada = categoria;
+
+            mostrarFiltros();
+            mostrarProductos();
+
+        });
+
+        contenedorFiltros.appendChild(boton);
+    });
 }
 
 mostrarFiltros();
