@@ -62,4 +62,56 @@ const productos = [
         categoria: "Audio",
         stock: 2
     }
-]
+];
+
+let carrito = [];
+
+let categoriaSeleccionada = "Todas";
+
+const contenedorProductos = document.getElementById("productos");
+const contenedorFiltros = document.getElementById("filtros");
+const cantidadProductos = document.getElementById("cantidad-productos");
+
+const listaCarrito = document.getElementById("lista-carrito");
+const botonVaciar = document.getElementById("vaciar-carrito");
+
+const articulos = document.getElementById("articulos");
+const subtotal = document.getElementById("subtotal");
+const descuento = document.getElementById("descuento");
+const total = document.getElementById("total");
+
+function mostrarProductos (){
+
+    contenedorProductos.innerHTML = "";
+
+    let productosFiltrados = productos;
+
+    if(categoriaSeleccionada !== "Todas"){
+        productosFiltrados = productos.filter(producto =>
+            producto.categoria === categoriaSeleccionada
+        );
+    }
+
+    cantidadProductos.textContent =
+    `Mostrar ${productosFiltrados.length} productos`;
+
+    productosFiltrados.forEach(producto => {
+        
+        const tarjeta = document.createElement("div");
+        tarjeta.classList.add("tarjeta");
+
+        tarjeta.innerHTML =
+        `<h3>${producto.nombre}</h3>
+        <p>${producto.categoria}</p>
+        <p>Precio: $ ${producto.precio.toLocaleString("es-CO")}</p>
+        <p>Disponibles: ${producto.stock}</p>
+        ${producto.stock === 0 ? "<span>Agotado</span>" : ""}
+        <button class="agregar" data-id="${producto.id}"
+            ${producto.stock === 0 ? "disabled" : ""}>
+            Agregar
+        </button>
+        `;
+
+        contenedorProductos.appendChild(tarjeta);
+    });
+}
